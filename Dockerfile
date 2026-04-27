@@ -24,4 +24,4 @@ RUN composer install --no-dev --optimize-autoloader
 RUN chown -R www-data:www-data /var/www/html \
  && chmod -R 775 storage bootstrap/cache
 
-CMD php artisan migrate --force && apache2-foreground
+CMD php artisan migrate --force --seed && apache2-foreground
