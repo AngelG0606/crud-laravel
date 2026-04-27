@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: laravel-app
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - app-network
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: crud_curso_react
+      DB_USERNAME: root
+      DB_PASSWORD: root
+
+  db:
+    image: mysql:5.7
+    container_name: laravel-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: crud_curso_react
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    name: laravel-network
+    driver: bridge
